@@ -12,7 +12,7 @@ class StudentController extends Controller
 {
     //
     public function index() {
-        $students = Student::paginate(10);
+        $students = Student::paginate(config('variable.pagination'));
         return view('pages.students',['students'=>$students]);
     }
 

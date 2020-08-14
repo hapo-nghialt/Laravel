@@ -54,6 +54,6 @@ Laravel CRUD
         </tbody>
     </table>
     <div style="float: right;">
-        <?php echo $students->links(); ?>
+        {{ $students->links() }}
     </div>
 @endsection
