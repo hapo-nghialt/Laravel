@@ -3,14 +3,13 @@
 Laravel CRUD
 @endsection
 @section('content')
-    <b align="center"><h1>Quản lý học sinh</h1></b>
-    <a href="students/create" class="btn btn-success">Thêm mới</a>
+    <b align="center" class="m-2"><h1>Quản lý học sinh</h1></b>
     @if (Session::has('message'))
         <div class="alert alert-success">
             {{ Session::get('message') }}
         </div>
     @endif
-    <div class="d-flex">
+    <div class="d-flex col-xl-9 mx-auto">
         <table class="table table-striped table-bordered table-hover" align="center">
             <thead>
                 <tr align="center">
@@ -41,7 +40,7 @@ Laravel CRUD
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('students.show', $users->id) }}" class="btn btn-primary">Chi tiết</a>
+                            <a href="{{ route('students.show', $users->id) }}" class="btn btn-info">Chi tiết</a>
                         </td>
                         <td>
                             <a href="{{ route('students.edit', $users->id) }}" class="btn btn-warning">Sửa</a>
@@ -57,8 +56,12 @@ Laravel CRUD
                 @endforeach
             </tbody>
         </table>
-        <div style="float: right;">
-            {{ $students->links() }}
-        </div>  
+    </div>
+    <div class="d-flex justify-content-end mr-5">
+        {{ $students->links() }}
+    </div> 
+    <div class="d-flex justify-content-center">
+        <a href="{{ route('students.create') }}" class="btn btn-success mx-2">Thêm mới</a>
+        <a href="{{ route('students.restore') }}" class="btn btn-warning mx-2" onclick="return confirm('Bạn có muốn khôi phục dữ liệu đã xóa không?')">Khôi phục</a>
     </div>
 @endsection

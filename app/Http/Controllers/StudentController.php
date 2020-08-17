@@ -11,14 +11,18 @@ use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
-    //
     public function index() {
         $students = Student::paginate(config('variable.pagination'));
-        return view('pages.students',['students'=>$students]);
+        return view('pages.students', ['students' => $students]);
     }
 
     public function create() {
         return view('pages.create');
+    }
+    
+    public function restore() {
+        Student::withTrashed()->restore();
+        return redirect()->route('students.index')->with('message', trans('message.restore_success'));
     }
 
     public function store(StudentRequest $request) {
@@ -42,7 +46,7 @@ class StudentController extends Controller
 
     public function edit($id) {
         $student = Student::findOrFail($id);
-        return view('pages.edit', ['student'=>$student]);
+        return view('pages.edit', ['student' => $student]);
     }
 
     public function update(StudentUpdateRequest $request, $id) {
