@@ -28,7 +28,7 @@ Laravel CRUD | Edit
         </div>
         <div class="form-group">
             <label>Avatar</label><br>
-            <div><img src="{{ asset('storage/'.$student->avatar) }}" class="rounded-circle"></div>
+            <div><img src="{{ asset('storage/'.$student->avatar) }}" class="rounded-circle" width="50px" height="50px"></div>
             <input type="file" name="avatar">
             @if ($errors->has('avatar'))
                 <div class="alert alert-danger">

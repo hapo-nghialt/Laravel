@@ -10,50 +10,55 @@ Laravel CRUD
             {{ Session::get('message') }}
         </div>
     @endif
-    <table class="col-xl-9 table table-striped table-bordered table-hover" align="center">
-        <thead>
-            <tr align="center">
-                <th>STT</th>
-                <th>Tên học sinh</th>
-                <th>Số điện thoại</th>
-                <th>Avatar</th>
-                <th>Địa chỉ</th>
-                <th>Giới tính</th>
-                <th colspan="2">Hành động</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($students as $users)
+    <div class="d-flex">
+        <table class="table table-striped table-bordered table-hover" align="center">
+            <thead>
                 <tr align="center">
-                    <td>{{ $users->id }}</td>
-                    <td>{{ $users->name }}</td>
-                    <td>{{ $users->phone }}</td>
-                    <td>
-                        <div><img src="storage/{{ $users->avatar }}" width="50px"></div>
-                    </td>
-                    <td>{{ $users->address }}</td>
-                    <td>
-                        @if ($users->gender == 0)
-                            {{ "Nam" }}
-                        @else
-                            {{ "Nữ" }}
-                        @endif
-                    </td>
-                    <td>
-                        <a href="{{ route('students.edit', $users->id) }}" class="btn btn-primary">Sửa</a>
-                    </td>
-                    <td>
-                        <form action="{{ route('students.destroy', $users->id) }}" method="post">
-                          @csrf
-                          @method('DELETE')
-                          <button class="btn btn-danger" type="submit">Xóa</button>
-                        </form>
-                    </td>
+                    <th>STT</th>
+                    <th>Họ tên</th>
+                    <th>Số điện thoại</th>
+                    <th>Avatar</th>
+                    <th>Địa chỉ</th>
+                    <th>Giới tính</th>
+                    <th colspan="3">Hành động</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-    <div style="float: right;">
-        {{ $students->links() }}
+            </thead>
+            <tbody>
+                @foreach ($students as $users)
+                    <tr align="center">
+                        <td>{{ $users->id }}</td>
+                        <td>{{ $users->name }}</td>
+                        <td>{{ $users->phone }}</td>
+                        <td>
+                            <div><img src="storage/{{ $users->avatar }}" width="50px" height="50px"></div>
+                        </td>
+                        <td>{{ $users->address }}</td>
+                        <td>
+                            @if ($users->gender == 0)
+                                {{ "Nam" }}
+                            @else
+                                {{ "Nữ" }}
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('students.show', $users->id) }}" class="btn btn-primary">Chi tiết</a>
+                        </td>
+                        <td>
+                            <a href="{{ route('students.edit', $users->id) }}" class="btn btn-warning">Sửa</a>
+                        </td>
+                        <td>
+                            <form action="{{ route('students.destroy', $users->id) }}" method="post">
+                              @method('DELETE')
+                              @csrf
+                              <button class="btn btn-danger" onclick="return confirm('Are you sure ?')">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div style="float: right;">
+            {{ $students->links() }}
+        </div>  
     </div>
 @endsection

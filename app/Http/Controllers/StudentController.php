@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentRequest;
+use App\Http\Requests\StudentUpdateRequest;
 use App\Student;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -40,11 +41,11 @@ class StudentController extends Controller
     }
 
     public function edit($id) {
-        $student = Student::find($id);
+        $student = Student::findOrFail($id);
         return view('pages.edit', ['student'=>$student]);
     }
 
-    public function update(StudentRequest $request, $id) {
+    public function update(StudentUpdateRequest $request, $id) {
         $student = $request->all();
         
         if ($request->hasFile('avatar')) {
@@ -56,13 +57,18 @@ class StudentController extends Controller
             $student['avatar'] = $avatar;
         }
 
-        Student::find($id)->update($student);
+        Student::findOrFail($id)->update($student);
 
         return redirect()->route('students.index')->with('message', trans('message.update_success'));
     }
 
     public function destroy($id) {
-        Student::find($id)->delete();
-        return redirect()->route('students.index');
+        Student::findOrFail($id)->delete();
+        return redirect()->route('students.index')->with('message', trans('message.delete_success'));
+    }
+
+    public function show($id) {
+        $student = Student::findOrFail($id);
+        return view('pages.student_detail', ['student' => $student]);
     }
 }

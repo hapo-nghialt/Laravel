@@ -21,6 +21,7 @@ class CreateStudents extends Migration
             $table->integer('gender')->default(0);
             $table->string('address');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
